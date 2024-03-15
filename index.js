@@ -2,6 +2,7 @@
 
 import { randomBytes } from 'react-native-randombytes'
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = randomBytes
+import subtle from "./subtle/subtle";
 
 // implement window.getRandomValues(), for packages that rely on it
 if (typeof window === 'object') {
@@ -20,6 +21,10 @@ if (typeof window === 'object') {
 
       return orig
     }
+  }
+
+  if (!window.crypto.subtle) {
+    window.crypto.subtle = subtle;
   }
 }
 
