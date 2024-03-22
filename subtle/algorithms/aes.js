@@ -4,8 +4,6 @@ const promisify = require('./../promisify');
 
 var aes = require('browserify-cipher')
 
-console.log("break aes", aes);
-
 const { DataError, NotSupportedError, OperationError } = require('../errors');
 const {
   bufferFromBufferSource,

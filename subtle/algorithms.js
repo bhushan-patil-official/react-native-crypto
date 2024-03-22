@@ -78,10 +78,7 @@ function getAlgorithm(alg, op) {
   }
 
   requireDOMString(alg);
-  console.log("break alg", alg, op);
   const impl = supportedAlgorithms[op][alg.toLowerCase()];
-  console.log("break supported alog", supportedAlgorithms);
-  console.log("break impl", impl)
   if (impl === undefined)
     throw new NotSupportedError();
   return impl;
