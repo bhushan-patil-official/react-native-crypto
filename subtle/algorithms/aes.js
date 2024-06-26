@@ -5,6 +5,7 @@ const promisify = require('./../promisify');
 var aes = require('browserify-cipher')
 
 const { DataError, NotSupportedError, OperationError } = require('../errors');
+const { createSecretKey } = require('../key');
 const {
   bufferFromBufferSource,
   toOctetEnforceRange,
@@ -27,7 +28,7 @@ const aesBase = {
     if (length !== 128 && length !== 192 && length !== 256)
       throw new OperationError();
 
-    const key = aes.createDecipheriv(await randomBytes(length >> 3));
+    const key = createSecretKey(await randomBytes(length >> 3));
     return new CryptoKey('secret', { name: this.name, length }, extractable,
                          usages, key);
   },
@@ -82,7 +83,7 @@ const aesBase = {
 
     return new CryptoKey('secret', { name: this.name, length: buf.length << 3 },
                          extractable, keyUsages,
-                         aes.createDecipheriv(buf));
+                         createSecretKey(buf));
   },
 
   exportKey(format, key) {
@@ -299,7 +300,7 @@ module.exports.AES_KW = {
     const secretKey = key[kKeyMaterial];
     const cipher = `aes${secretKey.symmetricKeySize << 3}-wrap`;
 
-    const c = aes.createCipheriv(cipher, secretKey, this.defaultIV);
+    const c = createCipheriv(cipher, secretKey, this.defaultIV);
     return Buffer.concat([c.update(data), c.final()]);
   },
 
@@ -307,7 +308,7 @@ module.exports.AES_KW = {
     const secretKey = key[kKeyMaterial];
     const cipher = `aes${secretKey.symmetricKeySize << 3}-wrap`;
 
-    const c = aes.createDecipheriv(cipher, secretKey, this.defaultIV);
+    const c = createDecipheriv(cipher, secretKey, this.defaultIV);
     return Buffer.concat([c.update(data), c.final()]);
   }
 };
