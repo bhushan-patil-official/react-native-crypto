@@ -1,14 +1,17 @@
 # react-native-crypto
 
-Note: this module is a clone of [crypto-browserify](https://github.com/crypto-browserify/crypto-browserify), with randombytes replaced.
-
-A port of node's `crypto` module to React Native.
+This module consists of implementation most of the crypto modules accessed from their respective libraries. Subtle module is copied from [webcrypto](https://github.com/nodejs/webcrypto).
 
 ## DEPRECATED
 
 you should probably use a combination of:
 - react-native-get-random-values to shim getRandomValues
 - crypto-browserify
+
+## Crypto subtle
+The subtle module is copied from the [webcrypto](https://github.com/nodejs/webcrypto) module, and is a partial implementation of the WebCrypto API.
+For better understanding go through [webcrypto](https://github.com/nodejs/webcrypto) and [nodejs](https://github.com/nodejs/node/tree/main)'s crypto section.
+
 
 ## install
 
